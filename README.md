@@ -17,8 +17,7 @@ The example below was tested with [kind](https://kind.sigs.k8s.io/docs/user/quic
 
 ```bash
 kubectl apply -f https://download.elastic.co/downloads/eck/1.1.2/all-in-one.yaml
-kubectl apply -f 
-https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/monitoring-elastic.yaml
+kubectl apply -f https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/monitoring-elastic.yaml
 ```
 
 Check that Kibana and ElasticSearch are healthy:

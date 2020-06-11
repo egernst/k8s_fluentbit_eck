@@ -17,7 +17,8 @@ The example below was tested with [kind](https://kind.sigs.k8s.io/docs/user/quic
 
 ```bash
 kubectl apply -f https://download.elastic.co/downloads/eck/1.1.2/all-in-one.yaml
-kubectl apply -f https://gist.githubusercontent.com/egernst/d8f20021db724ba831a2552ba02027fe/raw/4c41bb7f519b2f1fbde0a15d79fdcea9c9f59173/monitoring-elastic.yaml
+kubectl apply -f 
+https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/monitoring-elastic.yaml
 ```
 
 Check that Kibana and ElasticSearch are healthy:
@@ -60,9 +61,9 @@ Setup the service account/CRDs:
 
 Start the daemonset:
 ```bash
-kubectl apply -f https://gist.githubusercontent.com/egernst/d8f20021db724ba831a2552ba02027fe/raw/e843dc1049adfc71cec49e7ca60ee73385b3b2fb/fluent-bit-role-sa.yaml
-kubectl apply -f https://gist.githubusercontent.com/egernst/d8f20021db724ba831a2552ba02027fe/raw/79ef513c6c8eae656a039fe0ae9a466426e597f1/fluent-bit-configmap.yaml
-kubectl apply -f https://gist.githubusercontent.com/egernst/d8f20021db724ba831a2552ba02027fe/raw/3c112c444bb41ab63fb8815337891baf5cfdc4cd/fluent-bit-ds.yaml
+kubectl apply -f https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/fluent-bit-role-sa.yaml
+kubectl apply -f https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/fluent-bit-configmap.yaml
+kubectl apply -f https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/fluent-bit-ds.yaml
 ```
 
 Take a look and make sure indices are updated to account for the fluent-bit output (ie, logstash):
@@ -117,7 +118,7 @@ Docs:
 The challenge when working with ECK, again, was using TLS and the appropriate credentials. Starting with the
 baseline [example of elastic output in k8s](https://docs.fluentbit.io/manual/installation/kubernetes)  configmap from [here](https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/output/elasticsearch/fluent-bit-configmap.yaml), we adjusted the output section to: include user/password, as well as TLS settings:
 
-The [configmap](https://gist.githubusercontent.com/egernst/d8f20021db724ba831a2552ba02027fe/raw/79ef513c6c8eae656a039fe0ae9a466426e597f1/fluent-bit-configmap.yaml)
+The [configmap](https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/fluent-bit-configmap.yaml)
 changes:
 ```yaml
 apiVersion: v1
@@ -155,7 +156,7 @@ The paser.conf needed to be updated to include the cri parser. CRI adds a timest
 
 The [INPUT] stage of the configmap needed to be updated to leverage this cri parser, modifiying Parser from docker to cri.
        
-The [daemonset](https://gist.githubusercontent.com/egernst/d8f20021db724ba831a2552ba02027fe/raw/3c112c444bb41ab63fb8815337891baf5cfdc4cd/fluent-bit-ds.yaml) is based off of the example above, with the following additions for container variables:      
+The [daemonset](https://raw.githubusercontent.com/egernst/k8s_fluentbit_eck/master/fluent-bit-ds.yaml) is based off of the example above, with the following additions for container variables:      
         
 ```yaml
 apiVersion: apps/v1
